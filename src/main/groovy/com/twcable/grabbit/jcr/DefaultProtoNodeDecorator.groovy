@@ -19,7 +19,6 @@ import com.twcable.grabbit.proto.NodeProtos.Node as ProtoNode
 import com.twcable.grabbit.proto.NodeProtos.Value as ProtoValue
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.annotation.Nonnull
@@ -57,7 +56,8 @@ class DefaultProtoNodeDecorator extends ProtoNodeDecorator {
         if(innerProtoNode.mandatoryChildNodeList && innerProtoNode.mandatoryChildNodeList.size() > 0) {
             for(ProtoNode childNode: innerProtoNode.mandatoryChildNodeList) {
                 //Mandatory children must inherit any name overrides from their parent (if they exist)
-                createFrom(childNode, childNode.getName().replaceFirst(Pattern.quote(innerProtoNode.name), Matcher.quoteReplacement(getName()))).writeToJcr(session)
+                createFrom(childNode, childNode.getName().replaceFirst(Pattern.quote(innerProtoNode.name),
+                        Matcher.quoteReplacement(getName()))).writeToJcr(session)
             }
         }
         return new JCRNodeDecorator(jcrNode)
